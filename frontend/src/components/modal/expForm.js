@@ -1,7 +1,6 @@
 import {
   Input,
   Button,
-  Typography,
   Dialog,
   DialogHeader,
   DialogBody,
@@ -30,7 +29,7 @@ export default function ExpModal({ isOpen, opneModal }) {
               value={desc}
               placeholder="What was the expense made on?"
               variant="outlined"
-              onChange={(e)=> setDesc(e.target.value)}
+              onChange={(e) => setDesc(e.target.value)}
             />
             <Input
               value={amount}
@@ -44,7 +43,11 @@ export default function ExpModal({ isOpen, opneModal }) {
       </DialogBody>
       <DialogFooter>
         <div className="flex justify-center"></div>
-        <Button className="justify-self" variant="gradient" onClick={handleSubmit}>
+        <Button
+          className="justify-self"
+          variant="gradient"
+          onClick={handleSubmit}
+        >
           <span>Add</span>
         </Button>
       </DialogFooter>
