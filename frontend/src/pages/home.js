@@ -3,13 +3,13 @@ import { useState } from "react";
 import ExpModal from "../components/modal/expForm";
 
 export default function Home() {
-  const [isExpFormVisible, setisExpFormVisible] = useState(false);
+  const [isExpFormVisible, setIsExpFormVisible] = useState(false);
 
   // const showForm = () => {
   //   setisExpFormVisible(true);
   // }
   const openModalexpForm = () => {
-    setisExpFormVisible(!isExpFormVisible)
+    setIsExpFormVisible(!isExpFormVisible)
   }
   return (
     <div className="flex justify-center">
