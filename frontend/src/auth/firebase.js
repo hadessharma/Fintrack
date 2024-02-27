@@ -4,13 +4,14 @@ import { initializeApp } from "firebase/app";
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 import {
-  GoogleAuthProvider,
+  // GoogleAuthProvider,
   getAuth,
-  signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
-  sendPasswordResetEmail,
   signOut,
-  signInWithPopup,
+  // signInWithEmailAndPassword,
+  // createUserWithEmailAndPassword,
+  // sendPasswordResetEmail,
+  // signOut,
+  // signInWithPopup,
 } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
@@ -30,4 +31,9 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-export { auth, db };
+const logout = () => {
+  signOut(auth)
+    .then(() => console.log("user signed out."))
+    .catch((error) => console.log(error));
+};
+export { auth, db, logout };

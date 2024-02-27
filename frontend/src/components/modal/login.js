@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-import { auth, db } from "../../auth/firebase";
+import { auth, db , logout} from "../../auth/firebase";
 import { signInWithGoogle } from "../../auth/google";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Button, Dialog, Input } from "@material-tailwind/react";
@@ -17,14 +17,14 @@ export default function Login() {
       return;
     }
     if (user) {
-      console.log("user logged in.");
+      console.log(user);
       return;
     }
   }, [user, loading]);
 
   return (
     <>
-      <div className="Login">
+      <div className="Login flex">
         <div className="Login__container">
           {/* <Input
             className="login__textBox"
@@ -38,12 +38,18 @@ export default function Login() {
             placeholder="Password"
             onChange={(e) => setPassword(e.target.value)}
           /> */}
-          <Button
-            className="login__btn login__google"
-            onClick={signInWithGoogle}
-          >
-            Log In
-          </Button>
+          {!user ? (
+            <Button
+              className="login__btn login__google"
+              onClick={signInWithGoogle}
+            >
+              Log In
+            </Button>
+          ) : (
+            <Button className="login__btn login__google" onClick={logout}>
+              <span>Log Out</span>
+            </Button>
+          )}
         </div>
       </div>
     </>

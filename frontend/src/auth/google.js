@@ -13,8 +13,15 @@ import { auth, db } from "./firebase";
 const googleProvider = new GoogleAuthProvider();
 const signInWithGoogle = async () => {
   try {
-    const res = signInWithPopup(auth, googleProvider);
-    const user = res.user;
+    const res = await signInWithPopup(auth, googleProvider)
+      .then((result) => {
+        const user = result.user;
+        console.log(user.email);
+      })
+      .catch((err) => {
+        console.log("Caught popup error.");
+      });
+    const user = res;
     const q = query(collection(db, "users"), where("uid", "==", user.uid));
     const docs = await getDocs(q);
 
