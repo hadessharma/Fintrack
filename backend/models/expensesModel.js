@@ -7,15 +7,19 @@ const expensesSchema = Schema(
       type: String,
       required: true,
     },
+    email: {
+      type: String,
+      required: true,
+    },
     expenses: {
-        type: Array,
-        required: true,
-        default: []
-    }
+      type: Array,
+      required: true,
+      default: [],
+    },
   },
   { timestamps: true }
 );
 
-const Expenses = mongoose.model("Expenses",expensesSchema);
+const Expenses = mongoose.model("Expenses", expensesSchema);
 
 module.exports = Expenses;

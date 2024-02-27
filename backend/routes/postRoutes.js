@@ -1,6 +1,6 @@
 const express = require("express");
-const { postExpenses } = require("../controllers/postControllers");
 const router = express.Router();
+const { postExpenses } = require("../controllers/postControllers");
 
 router.post("/", [], postExpenses);
 
