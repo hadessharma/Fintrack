@@ -15,8 +15,8 @@ const signInWithGoogle = async () => {
   try {
     const res = await signInWithPopup(auth, googleProvider)
       .then((result) => {
-        const user = result.user;
-        console.log(user.email);
+        // const user = result.user;
+        // console.log(user.email);
       })
       .catch((err) => {
         console.log("Caught popup error.");
