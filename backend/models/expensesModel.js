@@ -1,6 +1,16 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+// const expenseShema = Schema({
+//   desc: {
+//     type: String,
+//     required: true,
+//   },
+//   amount: {
+//     type: Number,
+//     required: true,
+//   },
+// });
 const expensesSchema = Schema(
   {
     username: {
@@ -12,7 +22,7 @@ const expensesSchema = Schema(
       required: true,
     },
     expenses: {
-      type: Array,
+      type: [{}],
       required: true,
       default: [],
     },

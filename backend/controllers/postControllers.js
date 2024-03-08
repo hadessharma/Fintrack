@@ -5,6 +5,7 @@ const postExpenses = async (req, res) => {
     const { username, email, desc, amount } = req.body;
     const user = await Expenses.findOne({email:email});
     console.log(user);
+    console.log(req.body);
 
     if (user) {
       const doc = await Expenses.findOneAndUpdate(

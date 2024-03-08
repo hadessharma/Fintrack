@@ -35,8 +35,10 @@ export default function Home() {
           isOpen={isExpFormVisible}
         ></ExpModal>
         <Dashboard />
+      </div>
+      <div className="flex justify-center">
         <Button
-          className="mt-10 justify-self-end py-3 px-10"
+          className="mt-10 py-3 px-10"
           variant="gradient"
           onClick={openModalexpForm}
         >

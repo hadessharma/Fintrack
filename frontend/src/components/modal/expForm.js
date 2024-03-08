@@ -6,14 +6,29 @@ import {
   DialogBody,
   DialogFooter,
 } from "@material-tailwind/react";
+import { auth } from "../../auth/firebase";
 import { useState } from "react";
+import axios from "axios";
 
 export default function ExpModal({ isOpen, opneModal }) {
   const [desc, setDesc] = useState("");
   const [amount, setAmaount] = useState("");
+  const [userEmail, setUserEmail] = useState();
+  const [userName, setUserName] = useState();
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     opneModal();
+
+    setUserEmail(auth.currentUser.email);
+    setUserName("testuser");
+    // console.log(userName, userEmail, desc, amount);
+    await axios.post(`http://localhost:8000/api/post`, {
+      username: userName,
+      email: userEmail,
+      desc: desc,
+      amount: amount,
+    });
+    console.log(auth.currentUser.email);
     setDesc("");
     setAmaount("");
   };
