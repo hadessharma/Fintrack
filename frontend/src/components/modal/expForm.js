@@ -17,10 +17,10 @@ export default function ExpModal({ isOpen, opneModal }) {
   const [userName, setUserName] = useState();
 
   const handleSubmit = async () => {
-    opneModal();
+    
 
     setUserEmail(auth.currentUser.email);
-    setUserName("testuser");
+    setUserName(auth.currentUser.displayName);
     // console.log(userName, userEmail, desc, amount);
     await axios.post(`http://localhost:8000/api/post`, {
       username: userName,
@@ -28,9 +28,10 @@ export default function ExpModal({ isOpen, opneModal }) {
       desc: desc,
       amount: amount,
     });
-    console.log(auth.currentUser.email);
+    // console.log(auth.currentUser.email);
     setDesc("");
     setAmaount("");
+    opneModal();
   };
 
   return (
