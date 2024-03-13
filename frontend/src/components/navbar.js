@@ -15,7 +15,7 @@ export default function MainNavbar() {
         className="p-1 font-normal"
       >
         <Link to="/">
-          <p className="flex item-center">FINTRACK</p>
+          <p className="flex item-center font-bold">FINTRACK</p>
         </Link>
       </Typography>
     </ul>

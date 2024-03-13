@@ -11,10 +11,24 @@ export default function Dashboard() {
   const [userData, setUserData] = useState();
   const [tableRow, setTableRow] = useState([]);
   const [userName, setUserName] = useState("");
-  const TABLE_HEAD = ["Description", "Amount (Rs.)"];
+  const TABLE_HEAD = ["Description", "Date", "Amount (Rs.)"];
   let TABLE_ROWS = [];
 
+  // const onAuth = onAuthStateChanged(auth, (user) => {
+  //   if (user) {
+  //     setUser(true);
+  //     setUserEmail(user.email);
+  //   } else {
+  //     setUser(false);
+  //     setTableRow([]);
+  //   }
+  // });
+
   useEffect(() => {
+    // const delay = 3000;
+    // const delayId = setTimeout(() => {
+    //   onAuth();
+    // }, delay);
     onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(true);
@@ -25,7 +39,6 @@ export default function Dashboard() {
       }
     });
   }, []);
-
   const loadDashboard = async () => {
     try {
       const res = await axios.get(`http://localhost:8000/api/get`, {
@@ -37,7 +50,6 @@ export default function Dashboard() {
         for (const value of Object.values(userData)) {
           TABLE_ROWS.push(value);
         }
-
         setTableRow(TABLE_ROWS);
       } else setUserData(null);
     } catch (error) {
@@ -47,7 +59,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     if (user) {
-      setUserName(auth.currentUser.displayName);
+      setUserName(auth?.currentUser?.displayName);
       loadDashboard();
     } else setUserName(null);
   }, [user, loadDashboard]);
@@ -61,17 +73,8 @@ export default function Dashboard() {
       <div>
         {user ? (
           <>
-            {/* <div className="flex">
-              <Typography
-                variant="small"
-                color="blue-gray"
-                className="font-medium"
-              >
-                Hey {userName}!!! Here're your expenses~
-              </Typography>
-            </div> */}
             <div className="py-4 flex relative ">
-              <div className="flex-grow">
+              <div className="flex">
                 <Card className="h-full w-full overflow-scroll">
                   <table className="w-full min-w-max table-auto text-left p-4">
                     <thead>
@@ -79,12 +82,13 @@ export default function Dashboard() {
                         {TABLE_HEAD.map((head) => (
                           <th
                             key={head}
-                            className="border-b border-blue-gray-100 bg-blue-gray-50 p-4"
+                            className="border-b border-blue-gray-100 bg-blue-gray-50 px-10 py-5 "
                           >
                             <Typography
                               variant="small"
                               color="blue-gray"
                               className="font-normal leading-none opacity-70"
+                              align="center"
                             >
                               {head}
                             </Typography>
@@ -93,11 +97,11 @@ export default function Dashboard() {
                       </tr>
                     </thead>
                     <tbody>
-                      {tableRow.map(({ desc, amount }, index) => {
+                      {tableRow.map(({ desc, amount, date }, index) => {
                         const isLast = index === TABLE_ROWS.length - 1;
                         const classes = isLast
                           ? "p-4"
-                          : "p-4 border-b border-blue-gray-50";
+                          : "p-4 border-b border-blue-gray-50 px-10 py-5";
                         return (
                           <tr key={desc}>
                             <td className={classes}>
@@ -110,9 +114,14 @@ export default function Dashboard() {
                               </Typography>
                             </td>
                             <td
-                              key={amount}
+                              key={date}
                               className={`${classes} bg-blue-gray-50/50`}
                             >
+                              <Typography variant="small" align="">
+                                {date}
+                              </Typography>
+                            </td>
+                            <td key={amount} className={classes}>
                               <Typography variant="small" align="right">
                                 {amount}
                               </Typography>
@@ -124,7 +133,7 @@ export default function Dashboard() {
                   </table>
                 </Card>
               </div>
-              <div className="flex flex-column absolute right-0 py-1">
+              <div className="flex flex-column absolute right-0 py-2">
                 <Button onClick={hadnleSubmit} className="h-10 py-1 px-1">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -143,7 +152,15 @@ export default function Dashboard() {
                 </Button>
               </div>
             </div>
-
+            <div className="flex flex-column">
+              <Typography
+                variant="small"
+                color="blue-gray"
+                className="font-normal"
+              >
+                Total expense:
+              </Typography>
+            </div>
             {/* <div>
               {userData ? (
                 <Typography>Data : {Object.keys(userData)}</Typography>

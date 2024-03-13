@@ -18,6 +18,8 @@ export default function ExpModal({ isOpen, opneModal }) {
 
   const handleSubmit = async () => {
     
+    const date = new Date().toLocaleDateString();
+    const time = new Date().toLocaleTimeString();
 
     setUserEmail(auth.currentUser.email);
     setUserName(auth.currentUser.displayName);
@@ -27,6 +29,7 @@ export default function ExpModal({ isOpen, opneModal }) {
       email: userEmail,
       desc: desc,
       amount: amount,
+      date: date
     });
     // console.log(auth.currentUser.email);
     setDesc("");

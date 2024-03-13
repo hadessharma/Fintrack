@@ -2,21 +2,27 @@ const Expenses = require("../models/expensesModel");
 
 const postExpenses = async (req, res) => {
   try {
-    const { username, email, desc, amount } = req.body;
-    const user = await Expenses.findOne({email:email});
-    console.log(user);
-    console.log(req.body);
+    const { username, email, desc, amount, date } = req.body;
+    const user = await Expenses.findOne({ email: email });
+    // console.log(user);
+    // console.log(req.body);
 
     if (user) {
       const doc = await Expenses.findOneAndUpdate(
         { email: email },
-        { $push: { expenses: { desc: desc, amount: amount } } }
+        {
+          $push: {
+            expenses: { desc: desc, amount: Number(amount), date: date },
+          },
+          $inc: { totalExpenses: 5 },
+        }
       );
     } else {
       const newUser = new Expenses({
         username: username,
         email: email,
-        expenses: [{ desc: desc, amount: amount }],
+        expenses: [{ desc: desc, amount: Number(amount), date: date }],
+        totalExpenses: 0,
       });
       const doc = await newUser.save();
     }
