@@ -33,12 +33,16 @@ export default function Dashboard() {
       if (user) {
         setUser(true);
         setUserEmail(user.email);
+        setUserName(auth?.currentUser?.displayName);
+        loadDashboard();
       } else {
         setUser(false);
         setTableRow([]);
+        setUserName(null);
       }
     });
   }, []);
+
   const loadDashboard = async () => {
     try {
       const res = await axios.get(`http://localhost:8000/api/get`, {
@@ -57,12 +61,12 @@ export default function Dashboard() {
     }
   };
 
-  useEffect(() => {
-    if (user) {
-      setUserName(auth?.currentUser?.displayName);
-      loadDashboard();
-    } else setUserName(null);
-  }, [user, loadDashboard]);
+  // useEffect(() => {
+  //   if (user) {
+  //     setUserName(auth?.currentUser?.displayName);
+  //     loadDashboard();
+  //   } else setUserName(null);
+  // }, [user, loadDashboard]);
 
   const hadnleSubmit = async () => {
     loadDashboard();
@@ -134,7 +138,11 @@ export default function Dashboard() {
                 </Card>
               </div>
               <div className="flex flex-column absolute right-0 py-2">
-                <Button onClick={hadnleSubmit} className="h-10 py-1 px-1">
+                <Button
+                  onClick={hadnleSubmit}
+                  className="h-10 py-1 px-1"
+                  variant="outlined"
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
