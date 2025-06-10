@@ -10,22 +10,23 @@ import { useState } from "react";
 const Navbar = () => {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.user.token);
+  const user = useSelector((state) => state.user.id);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-
+  console.log(user);
   const handleSignIn = async () => {
     setLoading(true);
     setError(null);
 
     try {
-      const user = await singInWithGoogle();
-      const idToken = await user.getIdToken();
+      const curr_user = await singInWithGoogle();
+      const idToken = await curr_user.getIdToken();
 
       dispatch(
         login({
-          id: user.uid,
-          name: user.displayName || "",
-          email: user.email || "",
+          id: curr_user.uid,
+          name: curr_user.displayName || "",
+          email: curr_user.email || "",
           token: idToken,
         })
       );
@@ -46,15 +47,25 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="flex justify-start w-full p-4 bg-blue-500">
-      <div className="p-2 font-bold">FinTrack</div>
+    <nav className="flex justify-between w-full p-4 bg-blue-500">
+      <div className="p-2 font-bold text-2xl text-white">FinTrack</div>
       <div className="">
-        <button className="p-2 mx-2 border rounded-xl bg-blue-100 cursor-pointer">
-          SignIn
-        </button>
-        <button className="p-2 mx-2 border rounded-xl bg-blue-100 cursor-pointer">
-          SignOut
-        </button>
+        {!user && (
+          <button
+            className="p-2 mx-2 border rounded-xl bg-blue-100 cursor-pointer"
+            onClick={handleSignIn}
+          >
+            SignIn
+          </button>
+        )}
+        {user && (
+          <button
+            className="p-2 mx-2 border rounded-xl bg-blue-100 cursor-pointer"
+            onClick={handleSignOut}
+          >
+            SignOut
+          </button>
+        )}
       </div>
     </nav>
   );

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { login } from "../redux/user/userSlice";
 import { singInWithGoogle } from "../auth/firebase";
 
@@ -7,6 +7,7 @@ const Home = () => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const user = useSelector((state) => state.user.id);
 
   const handleSignIn = async () => {
     setLoading(true);
@@ -40,9 +41,14 @@ const Home = () => {
         Sign In and invite your friends to split the Lunch bill!!
       </h1>
 
-      <button className="border border-2 rounded-md p-2 bg-blue-500 text-white cursor-pointer hover:bg-blue-700">
-        SignIn
-      </button>
+      {!user && (
+        <button
+          className="border border-2 rounded-md p-2 bg-blue-500 text-white cursor-pointer hover:bg-blue-700"
+          onClick={handleSignIn}
+        >
+          SignIn
+        </button>
+      )}
     </div>
   );
 };
