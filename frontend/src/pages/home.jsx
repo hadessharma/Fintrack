@@ -43,7 +43,7 @@ const Home = () => {
 
       {!user && (
         <button
-          className="border border-2 rounded-md p-2 bg-blue-500 text-white cursor-pointer hover:bg-blue-700"
+          className="p-2 mx-2 border border-2 border-gray-600 rounded-xl bg-blue-500 text-white cursor-pointer"
           onClick={handleSignIn}
         >
           SignIn
