@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import { singInWithGoogle } from "../auth/firebase";
 import { auth } from "../auth/firebase";
 import { signOut } from "firebase/auth";
-import { login, logout } from "../redux/store";
 import { useState } from "react";
 
 const Navbar = () => {
@@ -37,4 +36,28 @@ const Navbar = () => {
       setLoading(false);
     }
   };
+  const handleSignOut = async () => {
+    try {
+      await signOut(auth);
+      dispatch(logout());
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  return (
+    <nav className="flex justify-start w-full p-4 bg-blue-500">
+      <div className="p-2 font-bold">FinTrack</div>
+      <div className="">
+        <button className="p-2 mx-2 border rounded-xl bg-blue-100 cursor-pointer">
+          SignIn
+        </button>
+        <button className="p-2 mx-2 border rounded-xl bg-blue-100 cursor-pointer">
+          SignOut
+        </button>
+      </div>
+    </nav>
+  );
 };
+
+export default Navbar;
