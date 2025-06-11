@@ -21,34 +21,37 @@ Fintrack is a modern expense-sharing application inspired by features similar to
 ## Installation
 
 1. Clone the repository:
-    ```bash
-    git clone https://github.com/yourusername/fintrack.git
-    cd fintrack
-    ```
+
+   ```bash
+   git clone https://github.com/yourusername/fintrack.git
+   cd fintrack
+   ```
 
 2. Install dependencies for the frontend and backend:
-    ```bash
-    # Frontend
-    cd frontend
-    npm install
 
-    # Backend
-    cd ../backend
-    pip install -r requirements.txt
-    ```
+   ```bash
+   # Frontend
+   cd frontend
+   npm install
+
+   # Backend
+   cd ../backend
+   pip install -r requirements.txt
+   ```
 
 3. Set up the database on Supabase and configure environment variables.
 
 4. Run the application:
-    ```bash
-    # Frontend
-    cd frontend
-    npm start
 
-    # Backend
-    cd ../backend
-    uvicorn main:app --reload
-    ```
+   ```bash
+   # Frontend
+   cd frontend
+   npm start
+
+   # Backend
+   cd ../backend
+   uvicorn main:app --reload
+   ```
 
 ## TODO
 
@@ -68,3 +71,9 @@ This project is licensed under the [MIT License](LICENSE).
 ## Contributing
 
 Contributions are welcome! Feel free to open issues or submit pull requests.
+
+# Backend
+
+Make sure to add a ".env" file where to put the following secrets.
+
+1. DATABASE_URL
