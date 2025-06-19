@@ -3,7 +3,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from models import (
     User, Group, GroupMember, Expense, ExpenseShare
 )
-from backend.app.schemas import (
+from schemas import (
     UserCreate, GroupCreate, MemberCreate, ExpenseCreate, ExpenseShareCreate
 )
 
@@ -15,6 +15,20 @@ async def create_user(db: AsyncSession, user: UserCreate) -> User:
     await db.refresh(db_user)
     return db_user
 
+async def create_user_from_firebase(db, decoded_token) -> User:
+    # decoded_token contains at least: uid, email, name, picture, etc.
+    user_data = {
+        "firebase_uid": decoded_token["uid"],
+        "email":       decoded_token.get("email"),
+        "name":        decoded_token.get("name", "Anonymous"),
+    }
+    db_user = User(**user_data)
+    db.add(db_user)
+    await db.commit()
+    await db.refresh(db_user)
+    return db_user
+
+
 async def get_user(db: AsyncSession, user_id: int) -> User:
     res = await db.execute(select(User).where(User.user_id == user_id))
     return res.scalars().first()
@@ -22,6 +36,10 @@ async def get_user(db: AsyncSession, user_id: int) -> User:
 async def list_users(db: AsyncSession):
     res = await db.execute(select(User))
     return res.scalars().all()
+
+async def get_user_by_firebase_uid(db, firebase_uid: str):
+    res = await db.execute(select(User).where(User.firebase_uid == firebase_uid))
+    return res.scalars().first()
 
 
 # Groups
