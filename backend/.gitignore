@@ -76,3 +76,5 @@ reload/  # if you use --reload dir
 
 # Docker
 docker-compose.override.yml
+
+fintrack-pass.json
